@@ -25,7 +25,7 @@ function scan_pub_ips() {
 	#echo -e "Scaanning ${BO}open ports${NC} for all public IPs in subscription: ${BL}${sub}${NC}"
 	nmap -Pn -sS --top-ports ${SCAN_NUM} -oN "${SCAN_RESULT}" -iL "${HOSTS_TO_SCAN}" >/dev/null 2>&1
 	#scan for UDP, always to top 100
-	nmap -Pn -sUV --top-ports 100 -oN "${SCAN_RESULT}" -iL "${HOSTS_TO_SCAN}" --append-output -d -v --reason --open >/dev/null 2>&1
+	nmap -Pn -sUV --top-ports 100 -T4 -oN "${SCAN_RESULT}" -iL "${HOSTS_TO_SCAN}" --append-output -d -v --reason --open >/dev/null 2>&1
 	sed -i s'#\d\+\.\d\+s#<SomeNum>#g' "${SCAN_RESULT}"
 	
 	if [ ! -f "${BASELINE_RESULT}" ]; then
